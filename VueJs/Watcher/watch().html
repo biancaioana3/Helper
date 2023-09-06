@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title></head>
+<style>
+    h2{text-align:center;color:#0081CF;font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight:bold}
+</style>
+<body>
+<h2>Vue.watch() & vm.$watch()</h1>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+let city = Vue.ref('London')
+
+let list = Vue.reactive(['apple','orange','peach']) 
+
+let car = Vue.reactive({
+    brand:'Toyota',model:'Supra',year:2021
+})
+
+let stop = Vue.watch(
+    //city,
+    //list,
+    //list.length,does NOT work
+    //car,
+    //car.brand,does NOT work
+    ()=>{
+        //return [...list]
+        //return list[0]
+        //return list.length
+        return car.brand
+    },
+    (newVal,preVal)=>{
+        console.log(preVal,newVal)
+    },
+    {
+        immediate:true,
+        deep:false
+    }
+)
+</script>
+</body>
+</html>

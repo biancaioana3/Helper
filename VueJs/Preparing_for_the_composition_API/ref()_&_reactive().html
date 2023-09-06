@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+.parent{border:#34495E 4px solid;color:#34495E;padding:15px;}
+.child{border:#3CB881 2px solid;color:#3CB881;padding:10px;}
+h2{background:wheat;color:navy;padding:3px;text-align:center}
+</style>  
+</head>
+<body>
+    <div id='root'>
+        <div class='parent'>
+            <h1>{{title}}</h1>
+            <h2>{{info.value}}</h2>
+            <h2>{{car.brand}} {{car.model}}</h2>
+            <child ref='cc'></child>
+        </div>
+    </div>
+    <template id='child'>
+        <div class='child'>
+            <h1>{{title}}</h1>
+            <h2>{{info.value}}</h2>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            title:'Root Comp.'
+        }}
+    })
+    app.config.globalProperties.info = Vue.ref('global config info')
+    app.config.globalProperties.car = Vue.reactive({brand:'Toyota',model:'Supra'})
+    app.component('child',{
+        template:'#child',
+        data(){return{
+            title:'child comp.'
+        }},
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

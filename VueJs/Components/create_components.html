@@ -1,0 +1,40 @@
+<body>
+    <div id='vue_app'>
+        <div class='bgOne'>
+            <h1>{{title}}</h1>
+            <child-comp ref='cc'></child-comp>
+            <local-comp></local-comp>
+        </div>
+    </div>
+    <template id='child_temp'>
+        <div class='bgTwo'>
+            <h2>{{title}}</h2>
+            <!-- nu poate fi acesata de aici componenta -->
+            <!-- <local-comp></local-comp> -->
+        </div>
+        <h3>Child Comp. Fragment</h3>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){return{
+                title:'Root Comp.'
+            }},
+            components:{
+                localComp:{
+                    name:'local_comp',
+                    data(){return{ title:"local comp in root comp." }},
+                    template:"<h3>{{title}}</h3>"
+                }
+            }
+        })
+        app.component('childComp',{
+            name:'child_comp',
+            data(){return{
+                title:'Child Comp.'
+            }},
+            template:"#child_temp"
+        })
+        let vm = app.mount('#vue_app')
+    </script>
+</body>

@@ -1,0 +1,51 @@
+<body>
+    <div id='root'>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            title:'Root Comp.', info:'render function',
+            author:'George Orwell', book:1984,
+        }},
+        render(){
+            return Vue.h('div',{class:'parent'},[
+                Vue.h('h1',{},this.title),
+                Vue.h(Vue.resolveComponent('child'),{mail:this.info},{
+                    default:()=>{
+                        return Vue.h('h2',{},this.title)
+                    },
+                    author:({real_name})=>{
+                        return Vue.h('h2',{},this.author+'/'+real_name)
+                    },
+                    book:()=>{
+                        return Vue.h('h3',{},this.book)
+                    }
+                })
+            ])
+        }
+    })
+    app.component('child',{
+        render(){
+            return [
+                Vue.h('div',{class:'child',},[
+                    Vue.h('h2',{title:this.$attrs.title},this.title),
+                    Vue.h('div',{title:'slots'},this.$slots.default()),
+                    Vue.h('div',{title:'slots'},this.$slots.author({
+                        real_name:this.real_name
+                    })),
+                    Vue.h('div',{title:'slots'},this.$slots.book()),
+                    Vue.h('h3',{},this.mail)
+                ]),
+                Vue.h('h4',{style:{color:'navy',backgroundColor:'wheat'}},
+                    Vue.h('i',{},'child comp. fragment'))
+            ]
+        },
+        data(){return{
+            title:'child comp.', real_name:'Eric Arthur Blair'
+        }},
+        props:['mail']
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

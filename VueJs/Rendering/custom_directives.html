@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+.parent{background:tomato;color:white;padding:15px;text-align:center}
+h1{color:wheat;background:navy;padding:10px}
+</style>  
+</head>
+<body>
+    <div id='root'></div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            title:'Root Comp.',info:'render direcetives'
+        }},
+        render(){
+            return Vue.h('div',{class:'parent'},[
+                Vue.withDirectives(
+                    Vue.h('h1',{},this.title),
+                    [
+                        [Vue.resolveDirective('test'),this.info,'my_arg']
+                    ]
+                ),
+                Vue.h('h2',{},this.info)
+            ])
+        }
+    })
+    app.directive('test',(el,binding)=>{
+        console.log('custom dir. test mounted or udpated')
+        console.log(el)
+        console.log(binding)
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

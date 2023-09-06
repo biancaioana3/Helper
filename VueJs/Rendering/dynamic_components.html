@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+.parent{background:tomato;color:white;padding:15px;text-align:center}
+.childOne{background:navy;color:wheat;padding:10px;text-align:center}
+.childTwo{background:wheat;color:navy;padding:10px;text-align:center}
+</style>  
+</head>
+<body>
+    <div id='root'></div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            title:'Root Comp.',
+            comp_name:'childOne'
+        }},
+        render(){
+            return Vue.h('div',{class:'parent'},[
+                Vue.h('h1',{},this.title),
+                Vue.h(Vue.resolveDynamicComponent(this.comp_name),{}),
+                Vue.h('hr'),
+                Vue.h('button',{
+                    onClick:()=>{this.comp_name='childOne'}
+                },'ONE'),
+                Vue.h('button',{
+                    onClick:()=>{this.comp_name='childTwo'}
+                },'TWO')
+            ])
+        }
+    })
+    app.component('childOne',{
+        render(){
+            return Vue.h('div',{class:'childOne'},Vue.h('h2',{},this.title)) 
+        },
+        data(){return{ title:'child comp. ONE' }},
+    })
+    app.component('childTwo',{
+        render(){
+            return Vue.h('div',{class:'childTwo'},Vue.h('h2',{},this.title)) 
+        },
+        data(){return{ title:'child comp. TWO' }},
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+
+<!-- ITERATIV -->
+
+<div id='vue_app'>
+    <ul>
+        <li v-for='(elem,index) in cities' :key='index'>
+            {{elem}} {{index}}
+        </li>
+    </ul>
+    <ul>
+        <li v-for='(val,prop,index) in nation' :key='index'>
+            {{prop}}: {{val}} {{index}}
+        </li>
+    </ul>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    let app = Vue.createApp({
+        setup(){
+            return{
+                street:{name:'Northumberland Street'}
+            }
+        },
+        data(){
+            return{
+                cities:['Newcastle','London'],
+                nation:{
+                    name:'UK',capital:'London',
+                    favorite:'British Pound Sterling'
+                }
+            }
+        }
+    })
+    let vm = app.mount('#vue_app')
+</script>
+
+<!-- JSON -->
+
+<div id='vue_app'>
+    <ul>
+        <li v-for='(elem,index) in json' :key='index'>
+            <div v-for='(val,prop,index) in elem' v-bind:key='index'>
+                <span v-if='prop!==`id`'>
+                    {{prop}}: {{val}}
+                </span>
+            </div>
+        </li>
+    </ul>
+        </div>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script>
+            let appp = Vue.createApp({
+                data(){
+                    return{
+                        json:[
+                            {id:111,brand:'Toyota',model:'Camry',year:2008,location:'London'},
+                            {id:222,brand:'Nissan',model:'GT-R',year:2021,owner:'Me'},
+                            {id:333,brand:'Honda',model:'NSX',year:1993,color:'white'},
+                            {id:444,brand:'Lexus',model:'RCF',year:2019}
+                        ]
+                    }
+                }
+            })
+            let vmm = appp.mount('#vue_app')
+        </script>

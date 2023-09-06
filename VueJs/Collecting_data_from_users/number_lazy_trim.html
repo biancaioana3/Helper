@@ -1,0 +1,23 @@
+<body>
+    <div id='vue_app'>
+        <h2>{{msg}}</h2>
+        <input v-model.number.lazy.trim='msg'/>
+        <!-- lazy = trimite raspunsul dupa enter
+             trim = trimite fara spatiile de la inceputu si de la sfarsit-->
+        <!-- <input id='input' :value='msg' @input="msg=$event.target.value"/> -->
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){
+                return{
+                    msg:'Form Input Bindings'
+                }
+            }
+        })
+        let vm = app.mount('#vue_app')
+        // document.getElementById('input').addEventListener('input',(event)=>{
+        //     console.log(event.target.value)
+        // })
+    </script>
+</body>

@@ -1,0 +1,24 @@
+<body>
+    <div id='vue_app'>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            json:[
+                {nation:'UK',capital:'London',favorite:'Pound Sterling'},
+                {city:'Newcastle Upon Type',street:'Percy Street'},
+                {brand:'Toyota',model:'Land Cruiser',engine:'Petrol'}
+            ]
+        }},
+        render(){
+            return this.json.map((elem,index)=>{
+                return Vue.h('ul',{key:index},Object.entries(elem).map((arr,index)=>{
+                    return Vue.h('li',{key:index},[Vue.h('span',{},arr[0]+': '),arr[1]])
+                }))
+            })
+        }
+    })
+    let vm = app.mount('#vue_app')
+    </script>
+    </body>

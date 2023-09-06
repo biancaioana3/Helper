@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+h1,p{padding:0;margin:0}
+input{margin:5px}
+hr{margin:10px}
+span{font-size:26px}
+h1{background:mediumaquamarine;color:yellow;padding:15px;text-align:center}
+h2{background:mediumvioletred;color:lemonchiffon;padding:15px;text-align:center}
+p{margin:10px;padding:5px;text-align:center;color:midnightblue;font-size:22px;border:2px solid mediumslateblue}
+</style>  
+</head>
+<body>
+    <div id='root'>
+        <input type="range" min=10 max=100 v-model='fsize'>
+        <input type="radio" value='left' v-model='textalign'><span>Left</span>
+        <input type="radio" value='center' v-model='textalign'><span>Center</span>
+        <input type="radio" value='right' v-model='textalign'><span>Right</span>
+        <hr>
+        <h1>{{title}}</h1>
+        <p v-fsize:[textalign]='fsize'>{{description}}</p>
+        <child></child>
+    </div>
+    <template id='child'>
+        <h2 class='child'>{{title}}</h2>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {
+            title:'Root Comp.',
+            description:'Custom Directives',
+            fsize:25,
+            textalign:'left'
+        }},
+        directives:{
+            fsize(el,binding){
+                console.log(binding)
+                el.style.fontSize=binding.value+'px'
+                el.style.textAlign=binding.arg
+            }
+        }
+    })
+    app.component('child',{
+        inheritAttrs:false,
+        name:'child',
+        template:'#child',
+        data(){return {
+            title:'Child Comp.'
+        }}  
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

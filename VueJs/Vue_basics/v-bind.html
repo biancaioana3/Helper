@@ -1,0 +1,39 @@
+    <div id='vue_app'>
+        <h1 v-bind:key='nation'>{{city}} {{nation}}</h1>
+        <p v-bind:title='city'>v-dirName:dirArg='dirVal'</p>
+        <p v-bind:title='10 > 1'>True</p>
+        <input type="text" :disabled='isDisabled'>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            setup(){
+                return{
+                    street:'Northumberland Street'
+                }
+            },
+            data(){
+                return{
+                    city:'Newcastle',nation:'UK',isDisabled:true
+                }
+            }
+        })
+        let vm = app.mount('#vue_app')
+    </script>
+
+
+************************************************************
+<div id='vue_app'>
+    <h2 v-bind:title='title.toUpperCase()'>{{msg}}</h2>
+    <input type="text" :value='msg' v-bind:disabled='!false' >
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    let appp = Vue.createApp({
+        data(){return{
+            title:'control HTML attributes using v-bind',
+            msg:'Vue directives: v-bind'
+        }}
+    })
+    let vmm = appp.mount('#vue_app')
+</script>

@@ -1,0 +1,53 @@
+<script>
+    let products = [
+        {id:111,price:100}, {id:222,price:95}, {id:333,price:115},
+        {id:444,price:115}, {id:555,price:105}, {id:666,price:115},
+        {id:777,price:100},
+    ]
+    // find the most expensive items
+    
+    let list = products.reduce((list,item)=>{
+        if(list.length>0){
+            if(list[0].price < item.price){
+                list = []
+                list.push(item)
+            }else if(list[0].price == item.price){
+                list.push(item)
+            }else{
+                // do nothing
+            }
+        }else{
+            list.push(item)
+        }
+        return list
+    },[])
+    
+    </script>
+
+    <!-- Object -->
+
+    <script>
+        let products_two = [
+            {id:111,price:100}, {id:222,price:95}, {id:333,price:115},
+            {id:444,price:115}, {id:555,price:105}, {id:666,price:115},
+            {id:777,price:100},
+        ]
+        // find the most expensive items
+        
+        let list_two = products_two.reduce((list_two,item)=>{
+            if(list_two.length>0){
+                if(list_two[0].price < item.price){
+                    list_two = []
+                    list_two.push(item)
+                }else if(list_two[0].price == item.price){
+                    list_two.push(item)
+                }else{
+                    // do nothing
+                }
+            }else{
+                list_two.push(item)
+            }
+            return list_two
+        },[])
+        
+        </script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+body{padding:25px}
+h1{background:tomato;color:white;padding:25px;text-align:center}
+h2{background:mediumslateblue;color:white;padding:25px;text-align:center}
+.animate__animated.animate__backInDown{--animate-duration:3s}
+.animate__animated.animate__backOutDown{--animate-duration:3s}
+.appearFrom{transform:scale(1.25);background:blue}
+.appearTo{transform:scale(0.5);background:green}
+.appearActive{transition:all 3s ease}
+</style> 
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/> 
+</head>
+<body>
+    <div id='root'>
+        <button @click='display=!display'>Display</button>
+        <transition mode='out-in' appear duration=5000
+        appear-from-class='appearFrom'
+        appear-to-class='appearTo'
+        appear-active-class='appearActive'
+        enter-active-class='animate__animated animate__backInDown'
+        leave-active-class='animate__animated animate__backOutDown'
+        >
+            <h1 v-if='display'>transition classes</h1>
+            <h2 v-else>another element</h2>
+        </transition>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {display:true}}
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

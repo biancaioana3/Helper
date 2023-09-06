@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title></head>
+<body>
+    <div id='root'>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            msg:'hello, there!!!'
+        }},
+        render(){
+            return [
+                Vue.h('input',{
+                    value:this.msg,
+                    onInput:($event)=>{this.msg=$event.target.value}
+                }),
+                Vue.h('hr'),
+                Vue.h(Vue.resolveComponent('child'),{
+                    modelValue:this.msg,
+                    'onUpdate:modelValue':($event)=>{
+                        this.msg=$event
+                    }
+                })
+            ]
+        }
+    })
+    app.component('child',{
+        template:'#child',
+        props:['modelValue'],
+        emits:['update:modelValue'],
+        render(){
+            return Vue.h('input',{
+                value:this.modelValue,
+                onInput:($event)=>{
+                    this.$emit('update:modelValue',$event.target.value)
+                }
+            })
+        }
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

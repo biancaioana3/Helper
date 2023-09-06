@@ -1,0 +1,50 @@
+<!-- Sorting Elements -->
+
+<script>
+    let list = [2,5,4,7,0,9,1,3,6,8]
+    let fruits = ['orange','banana','kiwi','APPLE','apple','Apple']
+
+    list.sort((a,b)=>{
+        // function scope & external data
+        // return positive number: ...b...a...
+        // return negative number: ...a...b...
+        return b-a // if result is positive number return ascending sorted array 
+        return a-b // if result is positive number return descending sorted array 
+
+    })
+
+    fruits.sort((a,b)=>{
+        //return a.length-b.length
+        let A = a.toUpperCase()
+        let B = b.toUpperCase()
+        // if(A>B) return 1
+        // if(A<B) return -1
+        if(A==B) return 0
+        return A>B?1:-1
+    })
+</script>
+
+<!-- Sorting Products Based on Rating -->
+
+<script>
+    let products = [
+        {id:111,ratings:[4.5,4.5,4.5]},
+        {id:222,ratings:[4.8,4.8,4.8,4.8]},
+        {id:333,ratings:[4.6,4.6]},
+        {id:444,ratings:[4.9,4.9,4.9,4.9,4.9,4.9]}
+    ]
+    // sort by average rating; best avg. rating first
+    products.forEach((elem)=>{
+        let sum = 0
+        elem.ratings.forEach((elem)=>{
+            sum += elem
+        })
+        elem.avg = sum/elem.ratings.length
+    })
+    products.sort((a,b)=>{
+        return a.avg - b.avg
+    })
+    products.forEach((elem)=>{
+        delete elem.avg
+    })
+</script>

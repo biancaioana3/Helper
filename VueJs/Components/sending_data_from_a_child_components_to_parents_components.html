@@ -1,0 +1,36 @@
+<body>
+    <div id='vue_app'>
+        <div class='bgOne'>
+            <h1>{{msg}}</h1>
+            <child-comp ref='cc' @relay='msg=$event.toUpperCase()'></child-comp>
+        </div>
+    </div>
+    <template id='temp_id'>
+        <div class='bgTwo'>
+            <h2>{{msg}}</h2><hr>
+            <input type="text" v-model='msg' @input='send'>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){
+                return{msg:'msg from root component.'}
+            }
+        })
+        app.component('childComp',{
+            emits:['relay'],
+            methods:{
+                send(){
+                    this.$emit('relay',this.msg)
+                }
+            },
+            data(){
+                return {msg:'msg from child component'}
+            },
+            name:'child_comp',
+            template:'#temp_id'
+        })
+        let vm = app.mount('#vue_app')
+    </script>
+</body>

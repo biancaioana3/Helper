@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+    <style>
+    .root{border: #34495E 3px solid;padding:15px;margin:15px;}
+    .child{border: #3CB881 3px dashed;color:#3CB881;padding:10px}
+    .grand_child{border: tomato 3px dashed;color:tomato;padding:5px}
+    p{background:navy;color:wheat;text-align:center;padding:5px;font-size:28px}
+    </style>
+    </head>
+    <body>
+        <div id='root' class='root'>
+            <h2>{{title}}</h2>
+            <p>{{msg}}</p>
+            <child ref='cc'></child>
+        </div>
+        <template id='child'>
+            <div class='child'>
+                <h3>{{title}}</h2>
+                <p>{{info.value}}</p>
+            </div>
+        </template>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script>
+        let app = Vue.createApp({
+            data(){return{
+                title:'ROOT Comp.', msg:'msg from Root Comp.'
+            }},
+            provide(){
+                console.log(this)
+                let that = this
+                return{
+                    info:Vue.computed({
+                        // get(){
+                        //     console.log(this)
+                        //     return that.msg
+                        // },
+                        get:function(){
+                            console.log(this)
+                            return this.msg
+                        }.bind(this),
+                        set:(v)=>{
+                            this.msg=v
+                        }
+                    })
+                    // info:Vue.computed(()=>{
+                    //     console.log(this)
+                    //     return this.msg
+                    // })
+                    //info:Vue.ref(this.msg)
+                }
+            }
+        })
+        app.component('child',{
+            template:'#child',
+            inject:['info'],
+            data(){return{
+                title:'CHILD Comp.'
+            }}
+        })
+        let vm = app.mount('#root')
+        </script>
+    </body>
+    </html>

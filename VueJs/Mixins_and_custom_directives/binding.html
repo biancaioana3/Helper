@@ -1,0 +1,24 @@
+<body>
+    <div id='root'>
+        <h1 v-local-dir="{title,description}">{{title}}</h1>
+        <!-- directive argument name must be in lower-case  -->
+        <p>{{description}}</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {
+            title:'Custom Directives',
+            description:'low-level DOM operations',arg:'info'
+        }},
+        directives:{
+            localDir(el,binding){
+                console.log('mounted or updated')
+                console.log(el)
+                console.log(binding)
+            }
+        }
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

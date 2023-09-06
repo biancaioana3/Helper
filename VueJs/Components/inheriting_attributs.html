@@ -1,0 +1,36 @@
+<body>
+    <div id='root' class='root'>
+        <h2>Root Component: <i>{{msg}}</i></h2>
+        <child ref='cc' :mail='msg' :class='cls_name' :title='title'
+        style='color:navy'
+        ></child>
+    </div>
+    <template id='child'>
+        <div :class='$attrs.class'>
+            <h3 :title='$attrs.title'>Child Component: <i>{{msg}}</i></h3>
+            <h4 :style='$attrs.style'><b>Props: </b>{{mail}}</h4>
+        </div>
+        <p :title='$attrs.title' style='background:tomato;color:white'>Child Comp. FRAGMENT</p>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){
+            return {
+                msg:'msg from ROOT Comp.',
+                cls_name:'childOne',
+                title:'title set by the root comp.'
+            }
+        }
+    })
+    app.component('child',{
+        inheritAttrs:false,
+        template:'#child',
+        props:['mail'],
+        data(){
+            return {msg:'msg from CHILD Comp.'}
+        }
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

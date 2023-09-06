@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+body{padding:25px}
+h1{background:tomato;color:white;padding:25px;text-align:center}
+h2{background:mediumslateblue;color:white;padding:25px;text-align:center}
+.demo-enter-from{ opacity:0;transform:scale(0) }
+.demo-enter-active{ transition:all 2s ease }
+/* .demo-enter-to{ background:green}
+.demo-leave-from{ background:black} */
+.demo-leave-active{ transition:all 2s ease }
+.demo-leave-to{ opacity:0;transform:scale(0) }
+</style>  
+</head>
+<body>
+    <div id='root'>
+        <button @click='display=!display'>Display</button>
+        <transition name='demo' 
+        @before-enter='beforeEnter'
+        @enter='enter'
+        @after-enter='afterEnter'
+        @enter-cancelled='enterCancelled'
+        >
+            <h1 v-if='display'>transition classes</h1>
+        </transition>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {display:false}},
+        methods:{
+            beforeEnter(el){
+                console.log(el)
+                console.log('beforeEnter')
+            },
+            enter(el,done){
+                console.log(el)
+                console.log('enter')
+                setTimeout(()=>{
+                    done()
+                },3000)
+            },
+            afterEnter(el){
+                console.log(el)
+                console.log('afterEnter')
+            },
+            enterCancelled(el){
+                console.log(el)
+                console.log('enterCancelled')
+            }
+        }
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

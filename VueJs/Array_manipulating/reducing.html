@@ -1,0 +1,116 @@
+<script>
+    let list = [9,8,7,6]
+    
+    // let sum = 0
+    // for(let elem of list){
+    //     sum = sum + elem
+    // }
+    
+    // let sum = list[0]
+    // for(let i=1; i<list.length; i++){
+    //     sum = sum + list[i]
+    // }
+    
+    let sum = list.reduce((preElem,elem,index)=>{
+        console.log(preElem,elem,index)
+        return preElem+elem
+    },0)
+    
+</script>
+
+<script>
+    let products = [{price:300}, {price:200}, {price:400}]
+    let arr = [['apple','orange'],['London','UK'],[1,2,3]]
+    
+    let cost = products.reduce((preElem,elem)=>{
+        console.log(preElem,elem)
+        return preElem+elem.price
+    },0)
+    
+    let flat_arr = arr.reduce((preElem,elem)=>{
+        return preElem.concat(elem) // preElem is not modified
+    })
+    
+    
+</script>
+
+<!-- Dedublicating via Reducing -->
+
+<script>
+    let cities = ['London','Newcastle','London','Sunderland','Newcastle','London','Newcastle','London','Sunderland','Newcastle']
+    
+    // let list = []
+    // for(let city of cities){
+    //     if(list.includes(city)){
+    //         console.log('duplicated city: '+city)
+    //     }else{
+    //         list.push(city)
+    //     }
+    // }
+    let list_ = cities.reduce((list_,city)=>{
+        if(list_.includes(city)){
+            console.log('duplicated city: '+city)
+        }else{
+            list_.push(city)
+        }
+        return list_
+    },[])
+    
+</script>
+
+<!-- Pice filter -->
+
+<script>
+    let products_two = [
+        {id:111,price:100},
+        {id:222,price:120},
+        {id:333,price:150},
+        {id:444,price:95},
+    ]
+    
+    let min_price = 110
+    
+    let list_two = products_two.reduce((list_two,item)=>{
+        if(item.price>min_price) list_two.push(item)
+        return list_two
+    },[])
+    
+    </script>
+
+<!-- Reduce Max -->
+
+<script>
+    let nums = [2,5,9,1,4,3,10,7,8,6] // unique numbers
+    // find the index of the biggest element
+    // let max = nums[0]
+    // for(let i=1; i<nums.length; i++){
+    //     if(nums[i] > max) max = nums[i]
+    // }
+    
+    let max = nums.reduce((max,num)=>{
+        if(num>max) max=num
+        return max
+    })
+    
+</script>
+
+<!-- Reduse Max Object -->
+
+<script>
+    let products_three = [
+        {id:111,price:100}, {id:222,price:95}, {id:333,price:115},
+        {id:444,price:115}, {id:555,price:105}, {id:666,price:115},
+        {id:777,price:100},
+    ]
+    // find the most expensive items
+    
+    let max_two = products_three.reduce((max_two,item)=>{
+        if(max_two.price < item.price) max_two = item
+        return max_two
+    })
+    
+    let list_three = products_three.reduce((list_three,item)=>{
+        if(item.price == max_two.price) list_three.push(item)
+        return list_three
+    },[])
+</script>

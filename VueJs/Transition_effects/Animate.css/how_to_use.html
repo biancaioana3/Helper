@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+h1{ background-color:#3CB881;text-align:center;padding:10px;color:white}
+.animate__animated.animate__wobble{--animate-duration:5s}
+</style> 
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+</head>
+<body>
+    <div id='root'>
+        <h1 class='animate__animated animate__wobble'>{{title}}</h1>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {
+            title:'animate with animate.css',display:true
+        }}
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

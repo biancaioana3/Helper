@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title></head><style>h1{background:indianred;color:yellow;text-align:center;padding:10px}</style>
+<body><h1 id='h1'>THIS 💡</h1>
+<script>
+let a = {
+    title:'object A',
+    that:this,
+    test(){
+        console.log(this)
+    },
+    arr:()=>{
+        console.log(this)
+    },
+    shell(){
+        //point la window
+        // return ()=>{
+        //     console.log(this)
+        // }
+
+        //point la obiectul a
+        // return function(){
+        //     console.log(this)
+        // }.bind(this)
+
+        //point la window
+        //return this.test //this.arr
+
+        //ponit la obiectul a
+        let timer = setTimeout(function(){
+            console.log(this)
+        },0)
+    },
+
+    //point la window
+    // timer:setTimeout(function(){
+    //     console.log(this)
+    // },0)
+}
+</script>
+</body>
+</html>

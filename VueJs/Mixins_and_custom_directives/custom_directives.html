@@ -1,0 +1,48 @@
+<body>
+    <div id='root'>
+        <h1 v-if='display' v-track-update>{{title}}</h1>
+        <p>{{description}}</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {
+            title:'Custom Directives',display:true,
+            description:'low-level DOM operations'
+        }},
+        directives:{
+            trackUpdate:{
+                beforeUpdate(el,binding,vnode,preVnode){
+                    console.log('beforeUpdate'),
+                    console.log(vnode)
+                    console.log(preVnode)
+                },
+                updated(el,binding,vnode,preVnode){
+                    console.log('updated'),
+                    console.log(el)
+                    console.log(binding)
+                },
+            }
+        }
+    })
+    app.directive('myDir',{
+        // 7 types of hooks: created, (b)mounted, (b)updated, (b)unmounted
+        created(el,binding,vnode){
+            console.log('created')
+        },
+        beforeMount(el,binding,vnode){
+            console.log('beforeMount')
+        },
+        mounted(el,binding,vnode){
+            console.log('mounted')
+        },
+        beforeUnmount(){
+            console.log('beforeUnmount')
+        },
+        unmounted(){
+            console.log('unmounted')
+        },
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

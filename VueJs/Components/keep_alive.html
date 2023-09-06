@@ -1,0 +1,105 @@
+<body>
+    <div id='root'>
+        <div class='root'>
+            <h2>{{title}}</h2><hr>
+            <div style="border:2px dashed #34495E; margin:0 auto">
+
+                <!-- cand folosteste keep alive componentele se craza toate cand deschizi pagina si nu se mai distrug
+                doar se dezactiveaza. cand nu il folosesti componentele se creaza la apasarea butonului si se distrug inaint e de apasare aurmatorului buton care incalca urmatoarea componenta -->
+                <keep-alive>
+                    <component :is='c_name' ref='dc' :key='c_name'></component>
+                </keep-alive>
+            </div>
+            <button @click='c_name=`c1`'>C1</button>
+            <button @click='c_name=`c2`'>C2</button>
+        </div>
+    </div>
+    <template id='child_1'>
+        <div class='childOne'><h2>{{title}}</h2></div>
+    </template>
+    <template id='child_2'>
+        <div class='childTwo'><h2>{{title}}</h2></div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){ return{ title:'ROOT Comp.',c_name:'c1', refresh:1 }}
+    })
+    app.component('c1',{
+        template:'#child_1',
+        data(){ return{ title:'Child Comp. ONE' }},
+        created(){ console.log(this.title+' created') },
+        activated(){ console.log(this.title+' activated') },
+        deactivated(){ console.log(this.title+' deactivated') },
+    })
+    app.component('c2',{
+        template:'#child_2',
+        data(){ return{ title:'Child Comp. TWO' }},
+        created(){ console.log(this.title+' created') },
+        activated(){ console.log(this.title+' activated') },
+        deactivated(){ console.log(this.title+' deactivated') },
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+
+
+<body>
+    <div id='root'>
+        <div class='root'>
+            <h2>{{title}}</h2><hr>
+            <!-- <keep-alive max=2> FIFO: first in, first out-->
+            <!-- <keep-alive include='c1,c3'> -->
+            <!-- <keep-alive exclude='c4'> -->
+            <!-- <keep-alive :include='list'> -->
+                <component v-bind:is='c'></component>
+            <!-- </keep-alive> -->
+            <hr>
+            <button @click='c=`c1`'>C1</button><button @click='c=`c2`'>C2</button>
+            <button @click='c=`c3`'>C3</button><button @click='c=`c4`'>C4</button>
+        </div>
+    </div>
+    <template id='child_1'>
+        <div class='childOne'><h3>{{title}}</h3></div>
+    </template>
+    <template id='child_2'>
+        <div class='childTwo'><h3>{{title}}</h3></div>
+    </template>
+    <template id='child_3'>
+        <div class='childThree'><h3>{{title}}</h3></div>
+    </template>
+    <template id='child_4'>
+        <div class='childFour'><h3>{{title}}</h3></div>
+    </template>    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app_ = Vue.createApp({
+        data(){ return { title:'ROOT Comp.',c:'c1', list:['c1','c2'] } }
+    })
+    app_.component('c1',{
+        name:'c1',
+        template:'#child_1',
+        data(){ return {title:'Child Comp. ONE'} },
+        unmounted(){ console.log(this.title+' unmounted...')}
+    })
+    app_.component('c2',{
+        name:'c2',
+        template:'#child_2',
+        data(){ return {title:'Child Comp. TWO'} },
+        unmounted(){ console.log(this.title+' unmounted...')}
+    })
+    app_.component('c3',{
+        name:'c3',
+        template:'#child_3',
+        data(){ return {title:'Child Comp. THREE'} },
+        unmounted(){ console.log(this.title+' unmounted...')}
+    })
+    app_.component('c4',{
+        name:'c4',
+        template:'#child_4',
+        data(){ return {title:'Child Comp. FOUR'} },
+        unmounted(){ console.log(this.title+' unmounted...')}
+    })
+    let vm_ = app_.mount('#root')
+    </script>
+</body>

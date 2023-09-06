@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title></head>
+<style>
+h1{background:wheat;color:navy;padding:3px;text-align:center}
+</style>
+<body>
+    <div id='vue_app'>
+        <h1>{{num.value}}</h1>
+        <button @click='addOne();record()'>Add</button>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            click_total:0
+        }},
+        methods:{
+            addOne(){
+                //this.num.value = this.num.value + 1
+                 this.num.value = 1
+            },
+            record(){
+                console.log('number of clicks: '+ ++this.click_total)
+            }
+        }
+    })
+    function customNum(num,delay){
+        let stop = null
+        return Vue.customRef((track,trigger)=>{
+            return {
+                get(){
+                    track()
+                    return num
+                },
+                set(v){
+                    clearTimeout(stop)
+                    stop = setTimeout(()=>{
+                        //num = v
+                         num = num + v
+                        trigger()
+                    },delay)
+                }
+            }
+        })
+    }
+    app.config.globalProperties.num = customNum(0,1000)
+    let vm = app.mount('#vue_app')
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+body{padding:25px}
+h1{background:tomato;color:white;padding:25px;text-align:center}
+.demo-enter-from{ background:blue }
+.demo-enter-active{ transition:all 5s ease }
+.demo-enter-to{ background:green}
+.demo-leave-from{ background:black}
+.demo-leave-active{ transition:all 5s ease }
+.demo-leave-to{ background:yellow }
+</style>  
+</head>
+<body>
+    <div id='root'>
+        <button @click='display=!display'>Display</button>
+        <transition name='demo' :duration='{enter:8000,leave:80}'>
+            <h1 v-if='display'>transition classes</h1>
+        </transition>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {display:true}}
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

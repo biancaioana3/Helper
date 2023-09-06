@@ -1,0 +1,123 @@
+<!-- #1 -->
+
+<div id='vue_app'>
+    <h1>{{fullName}}</h1>
+    <p>{{brand}} {{model}}</p>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    let app = Vue.createApp({
+        setup(){return{
+            city:'Newcastle'
+        }},
+        data(){
+            return{
+                year:1991, brand:'Toyota', model:'Supra'
+            }
+        },
+        computed:{
+            fullName:{
+                get(){ return this.brand+' '+this.model},
+                set(val){
+                    this.brand = val.brand
+                    this.model = val.model
+                }
+            },
+            age(){
+                return new Date().getFullYear() - this.year
+            },
+            capCity(){ return this.city.toUpperCase() }
+        }
+    })
+    let vm = app.mount('#vue_app')
+</script>
+
+<!-- #2 -->
+
+<div id='vue_app'>
+    <h1 :title='`computed caveats`'>{{year}}</h1>
+    <p>num: {{num}}</p>
+    <p>age: {{age}}</p>
+    <p>Computed Getters Must Never Modify Data Properties!</p>
+    <p>When Does a Computed Getter Trigger?</p>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    let appp = Vue.createApp({
+        data(){
+            return{
+                year:1991, num:0
+            }
+        },
+        computed:{
+            age(){
+                console.log('age getter triggered')
+                this.num++
+                return new Date().getFullYear() - this.year
+            }
+        }
+    })
+    let vmm = appp.mount('#vue_app')
+</script>
+
+<!-- #3 Edgy -->
+
+<div id='vue_app'>
+    <!-- <h1>{{age}}</h1> -->
+    <h2>edgy situations</h2>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    let cookie = {secret:true}
+    let apppp = Vue.createApp({
+        data(){return{
+            year:1991, city:'London'
+        }},
+        computed:{
+            age(){
+                console.log('age getter triggered')
+                // if(cookie.secret){
+                //     return 'access denied'
+                // }
+                return new Date().getFullYear() - this.year
+            }
+        }
+    })
+    let vmmm = apppp.mount('#vue_app')
+</script>
+
+<!-- #4 Year Sort -->
+
+<div id='vue_app'>
+    <ul>
+        <li v-for='(elem,index) in ay' :key='index'>
+            <div v-for='(val,prop,index) in elem' v-bind:key='index'>
+                <span v-if='prop!==`id`'>{{prop}}: {{val}}</span>
+            </div>
+        </li>
+    </ul>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    let appppp = Vue.createApp({
+        computed:{
+            ay(){
+            //this.json.sort((a,b)=>{return a.year-b.year})
+            let arr = []
+            this.json.forEach((elem)=>{arr.push(elem)})
+            return arr.sort((a,b)=>{return a.year-b.year})
+            }
+        },
+        data(){
+            return{
+                json:[
+                    {id:111,brand:'Toyota',model:'Camry',year:2008,location:'London'},
+                    {id:222,brand:'Nissan',model:'GT-R',year:2021,owner:'Me'},
+                    {id:333,brand:'Honda',model:'NSX',year:1993,color:'white'},
+                    {id:444,brand:'Lexus',model:'RCF',year:2019}
+                ]
+            }
+        }
+    })
+    let vmmmm = appppp.mount('#vue_app')
+</script>

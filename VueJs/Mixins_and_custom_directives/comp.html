@@ -1,0 +1,35 @@
+<body>
+    <div id='root'>
+        <h1 >{{title}}</h1>
+        <p>{{description}}</p>
+        <child v-local-dir="{title,description}"></child>
+    </div>
+    <template id='child'>
+        <div>
+                <h2>{{title}}</h2>
+                <i>child comp. fragment</i>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {
+            title:'Root Comp.', 
+            description:'low-level DOM operations',arg:'info'
+        }},
+        directives:{
+            localDir(el,binding){
+                console.log('mounted or updated')
+                console.log(el)
+                console.log(binding)
+            }
+        }
+    })
+    app.component('child',{
+        inheritAttrs:false,
+        template:'#child',
+        data(){return { title:'Child Comp.' }}
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

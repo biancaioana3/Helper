@@ -1,0 +1,35 @@
+<body>
+    <h2>Vue.reactive() & Misc.</h2>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    // Vue.reactive, .readonly, toRaw, .markRaw, 
+    // Vue.shallowReactive, Vue.shallowReadonly
+    function test(v){
+        console.log('isProxy: '+Vue.isProxy(v))
+        console.log('isReactive: '+Vue.isReactive(v))
+        console.log('isReadOnly: '+Vue.isReadonly(v))
+    }
+    let obj = {
+        title:'ordinary object',
+        nested:{
+            msg:'nested'
+        }
+    }
+    
+    let s_reactive = Vue.shallowReactive(obj)
+    let s_readonly = Vue.shallowReadonly(obj)
+    
+    //let mark = Vue.markRaw(obj)
+    
+    let reactive = Vue.reactive(obj)
+    let readonly = Vue.readonly(obj)
+    let readonly_reactive = Vue.readonly(reactive)
+    
+    let a = Vue.toRaw(reactive)
+    let b = Vue.toRaw(readonly)
+    let c = Vue.toRaw(readonly_reactive)
+    
+    
+    
+    </script>
+    </body>

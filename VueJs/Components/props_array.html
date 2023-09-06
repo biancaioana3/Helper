@@ -1,0 +1,39 @@
+<body>
+    <div id='vue_app'>
+        <div class='parent'>
+            <h1 v-bind:title='msg'>{{title}}</h1>
+            <p>{{msg}}</p>
+            <child-comp ref='cc' mail v-bind='car' ></child-comp>
+        </div>
+    </div>
+    <template id='child_temp'>
+        <div class='child'>
+            <h2>{{title}}</h2>
+            <p>{{mail}}</p>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){return{
+                title:'Root Comp.',msg:'root comp. msg',
+                car:{brand:'Toyota',model:'Supra'}
+            }}
+        })
+        app.component('childComp',{
+            beforeCreate(){ console.log(this.$props) },
+            props:['mail','brand','model','title'],
+            watch:{
+                mail(newVal,preVal){
+                    console.log(preVal+' -> '+newVal)
+                }
+            },
+            name:'child_comp',
+            template:'#child_temp',
+            data(){return{
+                title:'Child Comp.'
+            }},
+        })
+        let vm = app.mount('#vue_app')
+    </script>
+</body>

@@ -1,0 +1,40 @@
+<body>
+    <div id='root'>
+        
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            title:'Root Comp.', info:'render function',
+            author:'George Orwell', book:1984,
+        }},
+        render(){
+            return Vue.h('div',{class:'parent'},[
+                Vue.h('h1',{},this.title),
+                Vue.h('h2',{},this.author),
+                Vue.h('h3',{},this.book),
+                Vue.h(Vue.resolveComponent('child'),{mail:this.info,title:'inherited'})
+            ])
+        }
+    })
+    app.component('child',{
+        render(){
+            return [
+                Vue.h('div',{class:'child'},[
+                    Vue.h('h2',{title:this.$attrs.title},this.title),
+                    Vue.h('h3',{},this.mail)
+                ]),
+                Vue.h('h4',{style:{color:'navy',backgroundColor:'wheat'}},
+                    Vue.h('i',{},'child comp. fragment'))
+            ]
+        },
+        data(){return{
+            title:'child comp.',
+        }},
+        props:['mail'],
+        inheritAttrs:false
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

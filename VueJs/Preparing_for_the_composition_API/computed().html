@@ -1,0 +1,26 @@
+<body>
+    <h2>"Manual" Reactivity: Preparing for Later Lessons</h2>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+let msg = Vue.ref('hello')
+let car = Vue.reactive({brand:'Toyota',model:'Camry',year:2020})
+
+let capMsg = Vue.computed({
+    get(){
+        return msg.value.toUpperCase()
+    },
+    set(v){
+        msg.value = v
+    }
+})
+
+let car_age = Vue.computed(()=>{
+    return new Date().getFullYear() - car.year
+})
+
+
+
+
+
+</script>
+</body>

@@ -1,0 +1,37 @@
+<body>
+    <div id='root'>
+        <div class='root'>
+            <h2>{{title}}</h2><hr>
+            <child v-for='(elem,index) in list' :key='index+`-`+elem' :city='elem'></child>
+        </div>
+    </div>
+    <template id='child'>
+        <p class='child' title='child comp. P tag'>
+            {{title}}: {{city}}
+        </p>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){
+            return {
+                title:'ROOT Comp.',
+                list:['London','Newcatle','Durham','Sunderland']
+            }
+        }
+    })
+    app.component('child',{
+        name:'child',
+        props:['city'],
+        template:'#child',
+        data(){
+            return {
+                title:'Child Comp.'
+            }
+        },
+        unmounted(){ console.log(this.title+' unmounted...')}
+    })
+
+    let vm = app.mount('#root')
+    </script>
+</body>

@@ -1,0 +1,32 @@
+<script>
+    let cities = ['Durham','Newcastle','Dallas','London','Newcastle','London','Sunderland','Newcastle','London','Newcastle','Durham','London']
+    
+    function analyze(arr){
+        if(!Array.isArray(arr)) return 'illegal value'
+        if(arr.length==0) return 'no empty array'
+        let max = 0
+        let list = []
+        arr.reduce((result,elem)=>{
+            if(elem in result){
+                result[elem]++
+                if(result[elem]>max){
+                    max=result[elem]
+                    list=[]
+                    list.push(elem)
+                }else if(result[elem]==max){
+                    list.push(elem)
+                }else{
+                    // do nothing
+                }
+            }else{
+                result[elem]=1
+                // ['single elem'] or ['multiple unique elem']
+                if(max==0) max=1
+                if(max<=1) list.push(elem)
+            }
+            return result
+        },{})
+        return {max,list}
+    }
+    
+    </script>

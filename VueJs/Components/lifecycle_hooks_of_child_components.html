@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title></head>
+<style>
+.bgOne{background:#34495E;color:white;text-align:center;padding:10px;margin:5px;}
+.bgTwo{background:#3CB881;color:white;text-align:center;padding:5px;margin:5px;}
+</style>
+<body>
+    <div id='vue_app'>
+        <div class='bgOne'>
+            <h1>{{title}}</h1>
+            <child-comp ref='cc'></child-comp>
+        </div>
+    </div>
+    <template id='child'>
+        <div class='bgTwo'><h3>{{title}}</h3></div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){return{
+                title:'Root Comp.'
+            }},
+            beforeCreate(){console.log('Root Comp. beforeCreate')},
+            created(){console.log(this.title+' created')},
+            beforeMount(){console.log(this.title+' beforeMount')},
+            mounted(){console.log(this.title+' mounted')},
+            beforeUnmount(){console.log(this.title+' beforeUnmount')},
+            unmounted(){console.log(this.title+' unmounted')},
+            
+            beforeUpdate(){console.log(this.title+' beforeUpdate')},
+            updated(){console.log(this.title+' updated')},
+            renderTracked(){console.log(this.title+ ' render tracked')},
+            renderTriggered(){console.log(this.title+ ' render triggered')},
+            errorCaptured: (err, vm, info) => {
+                console.log('root errorCaptured')
+                console.log(err)
+                console.log(vm)
+                console.log(info)
+                return false
+            },
+        })
+        app.component('childComp',{
+            beforeCreate(){console.log('  Child Comp. beforeCreate')},
+            created(){throw new Error('child comp. err')},
+            beforeMount(){console.log(this.title+' beforeMount')},
+            mounted(){console.log(this.title+' mounted')},
+            beforeUnmount(){console.log(this.title+' beforeUnmount')},
+            unmounted(){console.log(this.title+' unmounted')},
+
+            beforeUpdate(){console.log(this.title+' beforeUpdate')},
+            updated(){console.log(this.title+' updated')},
+            renderTracked(){console.log(this.title+ ' render tracked')},
+            renderTriggered(){console.log(this.title+ ' render triggered')},
+            data(){return{
+                title:'  Child Comp.'
+            }},
+            template:"#child",
+        })
+        let vm = app.mount('#vue_app')
+    </script>
+</body>
+</html>

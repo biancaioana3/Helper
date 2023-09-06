@@ -1,0 +1,29 @@
+<body>
+    <div id='root'>
+        <ul v-if='list.length'>
+            <li class='item' v-for='(elem,index) in list' :key='index'>
+                {{elem}}
+            </li>
+        </ul>
+        <p class='error' v-else>No Item Found.</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            list:['London','Manchester','Newcastle']
+        }},
+        render(){
+            if(this.list.length){
+                // ul
+                return Vue.h('ul',{},this.list.map((elem,index)=>{
+                    return Vue.h('li',{class:'item',key:index,title:index},elem)
+                }))
+            }else{
+                return Vue.h('p',{class:'error'},'No Item Found.')
+            }
+        }
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

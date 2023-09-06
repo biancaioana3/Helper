@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>h2{background:wheat;color:navy;padding:3px;text-align:center}</style>  
+</head>
+<body>
+<h2>Vue.ref() & Misc.</h2>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+// Vue.ref, unref, isRef
+// Vue.toRef, toRefs
+// Vue.customRef, shallowRef, triggerRef(works with watchEffect)
+let str = 'hello'
+let str_ref = Vue.ref(str)
+let str_unref = Vue.unref(str_ref)
+
+let ro = Vue.reactive({
+    title:'reactive object', msg:'hello'
+})
+
+let title_ref = Vue.toRef(ro,'title')
+
+let {title,msg} = Vue.toRefs(ro)
+
+let shallowRef = Vue.shallowRef({
+    city:'London'
+})
+let ref = Vue.ref({
+    city:'Durham'
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<script>
+    let list = [
+        {id:111,price:300,rating:4.7},
+        {id:222,price:300,rating:4.6},
+        {id:333,price:200,rating:4.6},
+        {id:444,price:200,rating:4.7},
+        {id:555,price:95}
+    ]
+    // prop_val:[] {4.7:[]}
+    function groupBy(list,prop){
+        if(!Array.isArray(list)) return 'illegal val'
+        return list.reduce((result,item)=>{
+            let key = item[prop]
+            if(!result[key]) result[key]=[]
+            result[key].push(item)
+            return result
+        },{})
+    }
+    
+    </script>

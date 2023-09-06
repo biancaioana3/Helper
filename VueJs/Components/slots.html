@@ -1,0 +1,37 @@
+<body>  
+    <div id='vue_app'>
+        <div class='root'>
+            <h2>Root Component</h2>
+            <child_comp ref='cc'>
+                <template v-slot:city='{nation_prop}'>
+                    <b>{{city}}</b> <b>{{nation_prop}}</b>
+                </template>
+                <template #default='props'>
+                    <span>another element</span> <span>{{props}}</span>
+                </template>
+            </child_comp>
+        </div>
+    </div>
+    <template id='child_comp'>
+        <div class='child'>
+            <slot name='city' :nation_prop='nation'></slot>
+            <h3>Child Component</h3>
+            <slot :nation_prop='nation'></slot>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return{
+            msg:'msg from ROOT Comp.', city:'London'
+        }}
+    })
+    app.component('child_comp',{
+        template:'#child_comp',
+        data(){return{
+            nation:'United Kingdom'
+        }}
+    })
+    let vm = app.mount('#vue_app')
+    </script>
+</body>

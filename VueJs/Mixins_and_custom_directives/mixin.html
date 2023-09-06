@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+.parent{border:#34495E 4px solid;color:#34495E;padding:15px;}
+.child{border:#3CB881 2px solid;color:#3CB881;padding:10px;}
+h2{background:navy;color:wheat;padding:5px;text-align:center}
+h3{background:wheat;color:navy;padding:3px;text-align:center}
+</style>  
+</head>
+<body>
+    <div id='root'>
+        <div class='parent'>
+            <h1>{{title}}</h1>
+            <h3>{{cap_title}}</h3>
+            <h2>{{city}}</h2>
+            <child ref='cc' :mail='msg'></child>
+        </div>
+    </div>
+    <template id='child'>
+        <div class='child'>
+            <h1>{{title}}</h1><h3>{{mail}}</h3>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let myMixin = {
+        // merged into options obj. FULL access to comp. instance via THIS
+        data(){return{
+            city:'London',title:'mixin title'
+        }},
+        computed:{
+            cap_title(){return this.title.toUpperCase()}
+        },
+        created(){console.log('mixin created')}
+    }
+    let app = Vue.createApp({
+        //mixins:[myMixin],
+        data(){return{
+            title:'Root Comp.', msg:'msg from Root Comp.'
+        }},
+        methods:{
+            outputTitle(){console.log(this.title)}
+        },
+        created(){console.log('  root comp. created')}
+    })
+    let res = app.mixin(myMixin)
+    app.component('child',{
+        props:['mail'],
+        data(){return {
+            title:'Child Comp.'
+        }},
+        template:'#child',
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

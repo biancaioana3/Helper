@@ -1,0 +1,51 @@
+<body>
+    <div id='vue_app'>
+        <div class='parent'>
+            <h2>{{title}}</h2>
+            <!-- <child-comp ref='cc' v-bind:mail='msg'></child-comp> -->
+            <child-comp ref='cc' v-bind:mail='1984'></child-comp>
+        </div>
+    </div>
+    <template id='temp_id'>
+        <div class='child'>
+            <h3>{{title}}</h3>
+            <p>{{mail}}</p>
+            <p>{{cap_mail}}</p>
+        </div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){return{
+                title:'Root Comp.', msg:[1,2,3]//true//1984//'message from Root Comp.'
+            }}
+        })
+        app.component('childComp',{
+            beforeCreate(){
+                console.log(this.$props)
+                console.log(typeof this.mail)
+            },
+            props:['mail'],
+            watch:{
+                mail(newVal,preVal){
+                    console.log(preVal+' -> '+newVal)
+                }
+            },
+            computed:{
+                cap_mail(){
+                    if(typeof this.mail == 'string'){
+                        return this.mail.toUpperCase()
+                    }else{
+                        return this.mail
+                    }
+                }
+            },
+            template:'#temp_id',
+            name:'child_comp',
+            data(){return{
+                title:'Child Comp.'
+            }},
+        })
+        let vm = app.mount('#vue_app')
+    </script>
+</body>

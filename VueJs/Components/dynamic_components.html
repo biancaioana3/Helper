@@ -1,0 +1,39 @@
+<body>
+    <div id='root'>
+        <div class='root'>
+            <h2>{{title}}</h2><hr>
+            <div style="border:2px dashed #34495E; margin:0 auto">
+                <component :is='c_name' ref='dc' :key='refresh'></component>
+            </div>
+            <button @click='c_name=`c1`'>C1</button>
+            <button @click='c_name=`c2`'>C2</button>
+        </div>
+    </div>
+    <template id='child_1'>
+        <div class='childOne'><h2>{{title}}</h2></div>
+    </template>
+    <template id='child_2'>
+        <div class='childTwo'><h2>{{title}}</h2></div>
+    </template>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){ return{ title:'ROOT Comp.',c_name:'c1', refresh:1 }}
+    })
+    app.component('c1',{
+        template:'#child_1',
+        data(){ return{ title:'Child Comp. ONE' }},
+        created(){ console.log(this.title+' created') },
+        mounted(){ console.log(this.title+' mounted') },
+        unmounted(){ console.log(this.title+' unmounted') },
+    })
+    app.component('c2',{
+        template:'#child_2',
+        data(){ return{ title:'Child Comp. TWO' }},
+        created(){ console.log(this.title+' created') },
+        mounted(){ console.log(this.title+' mounted') },
+        unmounted(){ console.log(this.title+' unmounted') },
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>

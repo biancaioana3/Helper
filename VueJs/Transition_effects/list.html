@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Vue 3 Demo</title>
+<style>
+.delete{color:tomato;font-size:12px;margin-left:20px}
+.delete:hover{font-weight: bold;color:crimson;cursor:pointer}
+.fade-enter-from{opacity:0;transform: translateX(40px)}
+.fade-enter-active{transition:all 2s ease}
+.fade-leave-to{opacity:0;transform: translateX(40px)}
+.fade-leave-active{transition:all 2s ease;position:absolute}
+.fade-move{transition:transform 2s ease}
+</style>  
+</head>
+<body>
+    <div id='root'>
+        <input v-model='new_city' />
+        <button @click='list.unshift(new_city)'>First</button>
+        <button @click='list.splice(Math.round(list.length/2),0,new_city)'>Middle</button>
+        <button @click='list.push(new_city)'>Last</button>
+        <button @click='list.sort()'>Sort Alpha.</button>
+        <hr>
+        <transition-group tag='ol' name='fade'>
+            <li v-for='(elem,index) in list' :key='elem'>
+                {{elem}}
+                <i class='delete' @click='list.splice(index,1)'>Delete</i>
+            </li>
+        </transition-group>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+    let app = Vue.createApp({
+        data(){return {
+        new_city:'',
+        list:['London','Newcastle','Tynemouth','Durham','Surrey','Edinburgh','Darlington'],
+        }}
+    })
+    let vm = app.mount('#root')
+    </script>
+</body>
+</html>

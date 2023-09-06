@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 3 Demo</title>
+    <style>
+        .bgOne{
+            background-color: #3CB881;text-align:center;padding:10px;margin:5px;
+        }
+        .bgTwo{
+            background-color: #34495E;text-align:center;padding:10px;margin:5px;
+        }
+        .textOne{
+            color:wheat;font-size:24px;font-family:cursive;
+        }
+        .textTwo{
+            color:white;font-size:24px;font-family:Impact;
+        }
+    </style>
+</head>
+<body>
+    <div id='vue_app'>
+        <!-- <div v-bind:class='{bgOne:bg,bgTwo:!bg,textOne:text,textTwo:!text}'> -->
+        <!-- <div v-bind:class='theme'> -->
+        <div v-bind:class='[{bgOne:bg,bgTwo:!bg},textTwoCls]'>
+            <span>{{msg}}</span>
+        </div>
+        <button @click='bg=!bg'>Change Bg Color</button>
+        <button @click='text=!text'>Change Text Color</button>
+<!-- 2 -->
+        <!-- <div style='background-color:#34495E;color:#3CB881;font-size:25px'> -->
+        <!-- <div v-bind:style="{backgroundColor:bgColor}"> -->
+        <div :style='[styleObj,{fontSize:fontSize+`px`},ovStyle]'>
+            <span>{{msg}}</span>
+        </div>
+        <button @click='fontSize+=1'>+</button>
+        <button @click='fontSize-=1'>-</button>
+<!-- 3 -->
+        <ul>
+            <li v-for='(elem,index) in cities' :key='index'
+            v-bind:class='{
+                bgOne:index%2==0,bgTwo:index%2==1,
+                bgSelected:selected_cities.includes(elem)
+            }'
+            >
+                <span
+                v-bind:class='{
+                    textOne:index%2==0,textTwo:index%2==1,
+                    
+                }'
+                v-bind:style='{color:selected_cities.includes(elem)?`tomato`:undefined}'
+                >
+                    {{elem}}
+                </span>
+                <input type="checkbox" :value='elem' v-model='selected_cities'>
+            </li>
+        </ul>
+        <hr>
+        <p>{{selected_cities}}</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        let app = Vue.createApp({
+            data(){
+                return {
+                    msg:'control CSS & Style Using Vue3',
+                    bg:true,text:true,
+                    // theme:{
+                    //     bgOne:true,textOne:true
+                    // }
+                    theme:['bgOne','textOne'],
+                    bgOneCls:'bgOne',bgTwoCls:'bgTwo',
+                    textOneCls:'textOne',textTwoCls:'textTwo',
+// 2
+
+                    bgColor:'#34495E',
+                    styleObj:{
+                        backgroundColor:'#34495E',
+                        color:'#3CB881',
+                        //fontSize:'25px'
+                        //fontSize:30
+                    },
+                    fontSize:25,
+                    ovStyle:{
+                        color:'red'
+                    },
+//3
+                    cities:['London','Newcastle','Durham','Sunderland','Fenham',
+                            'Jesmond','Heaton','Gosforth','Gateshead','Tynemouth',
+                            'North Shields','Ponteland'],
+                    selected_cities:['London']
+                }
+            }
+        })
+        let vm = app.mount('#vue_app')
+    </script>
+</body>
+</html>
+
+
